@@ -1,0 +1,54 @@
+{
+  "name": "react-native-inhouse-sdk",
+  "version": "1.0.0",
+  "description": "A React Native module for tracking SDK functionality",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "jest",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix"
+  },
+  "keywords": [
+    "react-native",
+    "tracking",
+    "sdk",
+    "analytics",
+    "install-referrer"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-native": "^0.73.0",
+    "typescript": "^5.0.4",
+    "eslint": "^8.19.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "jest": "^29.6.3",
+    "@types/jest": "^29.5.13",
+    "ts-jest": "^29.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/28harishkumar/inhouse-react-native.git"
+  },
+  "bugs": {
+    "url": "https://github.com/28harishkumar/inhouse-react-native/issues"
+  },
+  "homepage": "https://github.com/28harishkumar/inhouse-react-native#readme",
+  "react-native": {
+    "android": {
+      "package": "co.tryinhouse.react_native.TrackingSDKPackage"
+    },
+    "ios": {
+      "podspec": "ios/TrackingSDK.podspec"
+    }
+  }
+}

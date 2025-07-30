@@ -1,0 +1,186 @@
+# React Native Inhouse Tracking SDK
+
+A React Native module for tracking SDK functionality with install referrer support.
+
+## Installation
+
+### Using npm
+
+```bash
+npm install react-native-inhouse-sdk
+```
+
+### Using yarn
+
+```bash
+yarn add react-native-inhouse-sdk
+```
+
+## iOS Installation
+
+The SDK uses CocoaPods for iOS. After installation, run:
+
+```bash
+cd ios && pod install
+```
+
+## Android Installation
+
+The SDK will be automatically linked via React Native's autolinking feature.
+
+### Manual Linking (if needed)
+
+1. Add the following to your `android/settings.gradle`:
+
+```gradle
+include ':react-native-inhouse-sdk'
+project(':react-native-inhouse-sdk').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-inhouse-sdk/android')
+```
+
+2. Add the following to your `android/app/build.gradle`:
+
+```gradle
+dependencies {
+    implementation project(':react-native-inhouse-sdk')
+}
+```
+
+3. Add the following to your `MainApplication.java`:
+
+```java
+import co.tryinhouse.react_native.TrackingSDKPackage;
+
+// In the getPackages() method:
+packages.add(new TrackingSDKPackage());
+```
+
+## Usage
+
+### Basic Setup
+
+```typescript
+import TrackingSDK from 'react-native-inhouse-sdk';
+
+// Initialize the SDK
+await TrackingSDK.initialize(
+  'your-project-id',
+  'your-project-token',
+  'your-shortlink-domain',
+  'https://api.tryinhouse.co', // optional
+  true, // enable debug logging
+);
+```
+
+### Track Events
+
+```typescript
+// Track app open
+const result = await TrackingSDK.trackAppOpen('shortlink-url');
+
+// Track session start
+const sessionResult = await TrackingSDK.trackSessionStart('shortlink-url');
+
+// Track short link click
+const clickResult = await TrackingSDK.trackShortLinkClick(
+  'shortlink-url',
+  'deeplink-url',
+);
+```
+
+### Install Referrer
+
+```typescript
+// Get install referrer
+const referrer = await TrackingSDK.getInstallReferrer();
+
+// Fetch install referrer (async)
+const fetchedReferrer = await TrackingSDK.fetchInstallReferrer();
+```
+
+### Event Listeners
+
+```typescript
+// Add callback listener
+const subscription = TrackingSDK.addCallbackListener(data => {
+  console.log('SDK Callback:', data.callbackType, data.data);
+});
+
+// Remove listener
+TrackingSDK.removeCallbackListener(subscription);
+
+// Remove all listeners
+TrackingSDK.removeAllListeners();
+```
+
+### App Lifecycle
+
+```typescript
+// Call when app resumes
+await TrackingSDK.onAppResume();
+
+// Reset first install state (for testing)
+await TrackingSDK.resetFirstInstall();
+```
+
+## Configuration
+
+The SDK automatically uses the React Native and other dependencies from your project. You can configure specific versions in your project's `android/build.gradle`:
+
+```gradle
+ext {
+    // SDK will use these versions if available
+    okhttpVersion = '4.12.0'
+    gsonVersion = '2.10.1'
+    installReferrerVersion = '2.2'
+    coroutinesVersion = '1.7.3'
+    coreKtxVersion = '1.12.0'
+    appcompatVersion = '1.6.1'
+}
+```
+
+## API Reference
+
+### Methods
+
+- `initialize(projectId, projectToken, shortLinkDomain, serverUrl?, enableDebugLogging?)`: Initialize the SDK
+- `onAppResume()`: Call when app resumes
+- `trackAppOpen(shortLink?)`: Track app open event
+- `trackSessionStart(shortLink?)`: Track session start
+- `trackShortLinkClick(shortLink, deepLink?)`: Track short link click
+- `getInstallReferrer()`: Get current install referrer
+- `fetchInstallReferrer()`: Fetch install referrer asynchronously
+- `resetFirstInstall()`: Reset first install state
+- `addCallbackListener(callback)`: Add event listener
+- `removeCallbackListener(subscription)`: Remove specific listener
+- `removeAllListeners()`: Remove all listeners
+
+### Types
+
+- `TrackingSDKCallback`: Callback data structure
+- `TrackingSDKInterface`: Main SDK interface
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Build errors**: Make sure you have the latest React Native version
+2. **Linking issues**: The SDK uses autolinking, but you can manually link if needed
+3. **iOS pod install**: Run `cd ios && pod install` after installation
+
+### Debug Mode
+
+Enable debug logging during initialization to see detailed logs:
+
+```typescript
+await TrackingSDK.initialize(
+  'project-id',
+  'project-token',
+  'shortlink-domain',
+  'https://api.tryinhouse.co',
+  true, // enable debug logging
+);
+```
+
+## License
+
+MIT
