@@ -44,6 +44,33 @@ Add the following receiver to your `android/app/src/main/AndroidManifest.xml` in
 
 This receiver is required for install referrer tracking functionality.
 
+#### Intent Filters for Deep Linking
+
+Add the following intent filters to your main activity inside the `<activity>` tag in `android/app/src/main/AndroidManifest.xml`:
+
+```xml
+<intent-filter>
+    <action android:name="android.intent.action.VIEW"/>
+    <category android:name="android.intent.category.DEFAULT"/>
+    <category android:name="android.intent.category.BROWSABLE"/>
+    <data android:scheme="myandroidapp"/>
+</intent-filter>
+
+<intent-filter android:autoVerify="true">
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+
+    <!-- Do not include other schemes. -->
+    <data android:scheme="http" />
+    <data android:scheme="https" />
+
+    <data android:host="your-shortlink-domain.tryinhouse.co" />
+</intent-filter>
+```
+
+These intent filters enable deep linking functionality for your app. The first filter handles custom scheme URLs (e.g., `myandroidapp://`), while the second filter handles HTTP/HTTPS URLs with your TryInHouse domain for App Links verification.
+
 ### Manual Linking (if needed)
 
 1. Add the following to your `android/settings.gradle`:
