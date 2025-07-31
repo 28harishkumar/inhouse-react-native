@@ -35,7 +35,7 @@ class TrackingSDKModule(reactContext: ReactApplicationContext) : ReactContextBas
                 projectId = projectId,
                 projectToken = projectToken,
                 shortLinkDomain = shortLinkDomain,
-                serverUrl = serverUrl ?: "https://your-api-server.com",
+                serverUrl = serverUrl ?: "https://api.tryinhouse.co",
                 enableDebugLogging = enableDebugLogging
             ) { callbackType, jsonData ->
                 Log.d("TrackingSDKModule", "SDK callback: callbackType=$callbackType, data=$jsonData")

@@ -2,22 +2,29 @@ import {
   NativeModules,
   NativeEventEmitter,
   EmitterSubscription,
-} from 'react-native';
+} from "react-native";
 
 const { TrackingSDK } = NativeModules;
 
-interface TrackingSDKCallback {
+// Check if the native module is available
+if (!TrackingSDK) {
+  console.error(
+    "TrackingSDK native module is not available. Make sure the native module is properly linked."
+  );
+}
+
+export interface TrackingSDKCallback {
   callbackType: string;
   data: string;
 }
 
-interface TrackingSDKInterface {
+export interface TrackingSDKInterface {
   initialize(
     projectId: string,
     projectToken: string,
     shortLinkDomain: string,
     serverUrl?: string,
-    enableDebugLogging?: boolean,
+    enableDebugLogging?: boolean
   ): Promise<string>;
 
   onAppResume(): Promise<void>;
@@ -33,14 +40,49 @@ interface TrackingSDKInterface {
   fetchInstallReferrer(): Promise<string>;
 
   resetFirstInstall(): Promise<void>;
+
+  addCallbackListener(
+    callback: (data: TrackingSDKCallback) => void
+  ): EmitterSubscription;
+
+  removeCallbackListener(subscription: EmitterSubscription): void;
+
+  removeAllListeners(): void;
 }
 
 class TrackingSDKManager implements TrackingSDKInterface {
-  private eventEmitter: NativeEventEmitter;
+  private eventEmitter: NativeEventEmitter | null = null;
   private listeners: EmitterSubscription[] = [];
+  private isAvailable: boolean = false;
 
   constructor() {
-    this.eventEmitter = new NativeEventEmitter(TrackingSDK);
+    if (!TrackingSDK) {
+      console.error(
+        "TrackingSDK native module is not available. Make sure the native module is properly linked."
+      );
+      this.isAvailable = false;
+      return;
+    }
+
+    try {
+      // Only create NativeEventEmitter if the module is available
+      this.eventEmitter = new NativeEventEmitter(TrackingSDK);
+      this.isAvailable = true;
+    } catch (error) {
+      console.error(
+        "Failed to create NativeEventEmitter for TrackingSDK:",
+        error
+      );
+      this.isAvailable = false;
+    }
+  }
+
+  private checkAvailability(): void {
+    if (!this.isAvailable) {
+      throw new Error(
+        "TrackingSDK native module is not available. Make sure the native module is properly linked."
+      );
+    }
   }
 
   initialize(
@@ -48,51 +90,63 @@ class TrackingSDKManager implements TrackingSDKInterface {
     projectToken: string,
     shortLinkDomain: string,
     serverUrl?: string,
-    enableDebugLogging: boolean = false,
+    enableDebugLogging: boolean = false
   ): Promise<string> {
+    this.checkAvailability();
     return TrackingSDK.initialize(
       projectId,
       projectToken,
       shortLinkDomain,
       serverUrl,
-      enableDebugLogging,
+      enableDebugLogging
     );
   }
 
   onAppResume(): Promise<void> {
+    this.checkAvailability();
     return TrackingSDK.onAppResume();
   }
 
   trackAppOpen(shortLink?: string): Promise<string> {
+    this.checkAvailability();
     return TrackingSDK.trackAppOpen(shortLink);
   }
 
   trackSessionStart(shortLink?: string): Promise<string> {
+    this.checkAvailability();
     return TrackingSDK.trackSessionStart(shortLink);
   }
 
   trackShortLinkClick(shortLink: string, deepLink?: string): Promise<string> {
+    this.checkAvailability();
     return TrackingSDK.trackShortLinkClick(shortLink, deepLink);
   }
 
   getInstallReferrer(): Promise<string> {
+    this.checkAvailability();
     return TrackingSDK.getInstallReferrer();
   }
 
   fetchInstallReferrer(): Promise<string> {
+    this.checkAvailability();
     return TrackingSDK.fetchInstallReferrer();
   }
 
   resetFirstInstall(): Promise<void> {
+    this.checkAvailability();
     return TrackingSDK.resetFirstInstall();
   }
 
   addCallbackListener(
-    callback: (data: TrackingSDKCallback) => void,
+    callback: (data: TrackingSDKCallback) => void
   ): EmitterSubscription {
+    this.checkAvailability();
+    if (!this.eventEmitter) {
+      throw new Error("Event emitter is not available");
+    }
     const subscription = this.eventEmitter.addListener(
-      'onSdkCallback',
-      callback,
+      "onSdkCallback",
+      callback
     );
     this.listeners.push(subscription);
     return subscription;
@@ -107,10 +161,18 @@ class TrackingSDKManager implements TrackingSDKInterface {
   }
 
   removeAllListeners(): void {
-    this.listeners.forEach(subscription => subscription.remove());
+    this.listeners.forEach((subscription) => subscription.remove());
     this.listeners = [];
   }
 }
 
-export default new TrackingSDKManager();
-export type { TrackingSDKCallback, TrackingSDKInterface };
+// Create a singleton instance with proper error handling
+let trackingSDKInstance: TrackingSDKManager | null = null;
+
+try {
+  trackingSDKInstance = new TrackingSDKManager();
+} catch (error) {
+  console.error("Failed to initialize TrackingSDK:", error);
+}
+
+export default trackingSDKInstance;

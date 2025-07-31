@@ -58,7 +58,7 @@ This document contains instructions for publishing the React Native Tracking SDK
 ## File Structure
 
 ```
-react-native-tracking-sdk/
+react-native-inhouse-sdk/
 ├── src/
 │   ├── index.ts                 # Main TypeScript source
 │   └── __tests__/
@@ -101,7 +101,7 @@ react-native-tracking-sdk/
 
 Users will need to:
 
-1. Install the package: `npm install react-native-tracking-sdk`
+1. Install the package: `npm install react-native-inhouse-sdk`
 2. Link the native modules (usually automatic with React Native 0.60+)
 3. For iOS: `cd ios && pod install`
 4. Import and use the SDK in their React Native code

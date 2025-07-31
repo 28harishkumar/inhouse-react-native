@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace "co.tryinhouse.react_native"
     compileSdkVersion rootProject.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 34
     buildToolsVersion rootProject.hasProperty('buildToolsVersion') ? rootProject.ext.buildToolsVersion : "34.0.0"
 
@@ -10,17 +11,17 @@ android {
         targetSdkVersion rootProject.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 34
         versionCode 1
         versionName "1.0"
-    }
-
-    repositories {
-        flatDir {
-            dirs 'src/libs'
-        }
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
         release {
             minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -33,17 +34,25 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
+
+    buildFeatures {
+        buildConfig true
+    }
+    
+    // Configure packaging to include AAR contents
+    packagingOptions {
+        pickFirst '**/libc++_shared.so'
+        pickFirst '**/libjsc.so'
+    }
 }
 
 dependencies {
-    // Use React Native from the project instead of forcing a specific version
-    implementation "com.facebook.react:react-native:+"
+    // Use compileOnly for React Native to avoid conflicts
+    compileOnly "com.facebook.react:react-native:+"
     
-    // Use Kotlin stdlib from the project's version if available
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:${rootProject.hasProperty('kotlinVersion') ? rootProject.ext.kotlinVersion : '1.8.0'}"
-    
-    // TryInhouse Android SDK AAR
-    implementation fileTree(dir: 'src/libs', include: ['*.jar', '*.aar'])
+    // Use the extracted JAR instead of AAR to avoid AAR dependency issues
+    implementation files('libs/classes.jar')
+    implementation fileTree(dir: 'libs', include: ['*.jar'], exclude: ['client-release.aar'])
     
     // Make dependencies configurable - use project versions when available
     def okhttpVersion = rootProject.hasProperty('okhttpVersion') ? rootProject.ext.okhttpVersion : '4.12.0'
@@ -53,10 +62,13 @@ dependencies {
     def coreKtxVersion = rootProject.hasProperty('coreKtxVersion') ? rootProject.ext.coreKtxVersion : '1.12.0'
     def appcompatVersion = rootProject.hasProperty('appcompatVersion') ? rootProject.ext.appcompatVersion : '1.6.1'
     
+    // Use Kotlin stdlib from the project's version if available
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${rootProject.hasProperty('kotlinVersion') ? rootProject.ext.kotlinVersion : '1.8.0'}"
+    
     implementation "com.squareup.okhttp3:okhttp:${okhttpVersion}"
     implementation "com.google.code.gson:gson:${gsonVersion}"
     implementation "com.android.installreferrer:installreferrer:${installReferrerVersion}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}"
     implementation "androidx.core:core-ktx:${coreKtxVersion}"
     implementation "androidx.appcompat:appcompat:${appcompatVersion}"
-} 
+}
