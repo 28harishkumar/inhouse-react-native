@@ -28,6 +28,22 @@ cd ios && pod install
 
 The SDK will be automatically linked via React Native's autolinking feature.
 
+### AndroidManifest.xml Configuration
+
+Add the following receiver to your `android/app/src/main/AndroidManifest.xml` inside the `<application>` tag:
+
+```xml
+<receiver
+  android:name="co.tryinhouse.android.InstallReferrerReceiver"
+  android:exported="true">
+  <intent-filter>
+      <action android:name="com.android.vending.INSTALL_REFERRER" />
+  </intent-filter>
+</receiver>
+```
+
+This receiver is required for install referrer tracking functionality.
+
 ### Manual Linking (if needed)
 
 1. Add the following to your `android/settings.gradle`:
@@ -90,7 +106,7 @@ const clickResult = await TrackingSDK.trackShortLinkClick(
 ### Install Referrer
 
 ```typescript
-// Get install referrer
+// Get install referrer storred in shared preferences
 const referrer = await TrackingSDK.getInstallReferrer();
 
 // Fetch install referrer (async)
