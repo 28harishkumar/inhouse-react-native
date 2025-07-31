@@ -59,15 +59,15 @@ packages.add(new TrackingSDKPackage());
 ### Basic Setup
 
 ```typescript
-import TrackingSDK from 'react-native-inhouse-sdk';
+import TrackingSDK from "react-native-inhouse-sdk";
 
 // Initialize the SDK
 await TrackingSDK.initialize(
-  'your-project-id',
-  'your-project-token',
-  'your-shortlink-domain',
-  'https://api.tryinhouse.co', // optional
-  true, // enable debug logging
+  "your-project-id",
+  "your-project-token",
+  "your-shortlink-domain",
+  "https://api.tryinhouse.co", // optional
+  true // enable debug logging
 );
 ```
 
@@ -75,15 +75,15 @@ await TrackingSDK.initialize(
 
 ```typescript
 // Track app open
-const result = await TrackingSDK.trackAppOpen('shortlink-url');
+const result = await TrackingSDK.trackAppOpen("shortlink-url");
 
 // Track session start
-const sessionResult = await TrackingSDK.trackSessionStart('shortlink-url');
+const sessionResult = await TrackingSDK.trackSessionStart("shortlink-url");
 
 // Track short link click
 const clickResult = await TrackingSDK.trackShortLinkClick(
-  'shortlink-url',
-  'deeplink-url',
+  "shortlink-url",
+  "deeplink-url"
 );
 ```
 
@@ -101,8 +101,8 @@ const fetchedReferrer = await TrackingSDK.fetchInstallReferrer();
 
 ```typescript
 // Add callback listener
-const subscription = TrackingSDK.addCallbackListener(data => {
-  console.log('SDK Callback:', data.callbackType, data.data);
+const subscription = TrackingSDK.addCallbackListener((data) => {
+  console.log("SDK Callback:", data.callbackType, data.data);
 });
 
 // Remove listener
@@ -110,6 +110,44 @@ TrackingSDK.removeCallbackListener(subscription);
 
 // Remove all listeners
 TrackingSDK.removeAllListeners();
+```
+
+The SDK tracks the following events, all of which send link data:
+
+- `session_start_shortlink`: Triggered when a session starts with a shortlink
+- `app_open_shortlink`: Triggered when the app opens via a shortlink
+- `app_install_from_shortlink`: Triggered when the app is installed from a shortlink
+
+All events include link data with the following structure:
+
+```json
+{
+  "id": "string",
+  "domain": "string",
+  "key": "string",
+  "url": "string",
+  "short_link": "string",
+  "title": "string",
+  "description": "string",
+  "image": "string",
+  "utm_source": "string",
+  "utm_medium": "string",
+  "utm_campaign": "string",
+  "utm_term": "string",
+  "utm_content": "string",
+  "ios": "string",
+  "android": "string",
+  "project_id": "string",
+  "folder_id": "string",
+  "playstore": "string",
+  "appstore": "string",
+  "deeplink_path": "string",
+  "link_data": "string", // json object with custom key value pairs
+  "website_link": "string",
+  "refer_code": "string",
+  "unique_clicks": 0,
+  "app_installs": 0
+}
 ```
 
 ### App Lifecycle
@@ -173,11 +211,11 @@ Enable debug logging during initialization to see detailed logs:
 
 ```typescript
 await TrackingSDK.initialize(
-  'project-id',
-  'project-token',
-  'shortlink-domain',
-  'https://api.tryinhouse.co',
-  true, // enable debug logging
+  "project-id",
+  "project-token",
+  "shortlink-domain",
+  "https://api.tryinhouse.co",
+  true // enable debug logging
 );
 ```
 
