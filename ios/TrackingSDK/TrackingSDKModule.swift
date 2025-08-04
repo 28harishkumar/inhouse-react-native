@@ -1,8 +1,9 @@
 import Foundation
 import React
+import InhouseTrackingSDK
 
-@objc(TrackingSDKModule)
-class TrackingSDKModule: RCTEventEmitter {
+@objc(TrackingSDK)
+class TrackingSDK: RCTEventEmitter {
     
     override init() {
         super.init()
@@ -21,20 +22,30 @@ class TrackingSDKModule: RCTEventEmitter {
                    resolver: @escaping RCTPromiseResolveBlock, 
                    rejecter: @escaping RCTPromiseRejectBlock) {
         
-        // Initialize your native iOS SDK here
-        // This is a placeholder implementation
         DispatchQueue.main.async {
-            // Simulate SDK initialization
-            print("Initializing TrackingSDK with projectId: \(projectId)")
-            
-            // Send callback event
-            let callbackData: [String: Any] = [
-                "callbackType": "initialized",
-                "data": "SDK initialized successfully"
-            ]
-            self.sendEvent(withName: "onSdkCallback", body: callbackData)
-            
-            resolver("initialized")
+            do {
+                // Initialize the actual iOS SDK
+                let finalServerUrl = serverUrl ?? "https://api.tryinhouse.co"
+                
+                InhouseTrackingSDK.shared.initialize(
+                    projectId: projectId,
+                    projectToken: projectToken,
+                    shortLinkDomain: shortLinkDomain,
+                    serverUrl: finalServerUrl,
+                    enableDebugLogging: enableDebugLogging
+                ) { [weak self] callbackType, jsonData in
+                    // Send callback event
+                    let callbackData: [String: Any] = [
+                        "callbackType": callbackType,
+                        "data": jsonData
+                    ]
+                    self?.sendEvent(withName: "onSdkCallback", body: callbackData)
+                }
+                
+                resolver("initialized")
+            } catch {
+                rejecter("INITIALIZATION_ERROR", error.localizedDescription, error)
+            }
         }
     }
     
@@ -42,8 +53,12 @@ class TrackingSDKModule: RCTEventEmitter {
     func onAppResume(_ resolver: @escaping RCTPromiseResolveBlock, 
                      rejecter: @escaping RCTPromiseRejectBlock) {
         DispatchQueue.main.async {
-            // Implement app resume tracking
-            resolver(nil)
+            do {
+                InhouseTrackingSDK.shared.onAppResume()
+                resolver(nil)
+            } catch {
+                rejecter("APP_RESUME_ERROR", error.localizedDescription, error)
+            }
         }
     }
     
@@ -52,9 +67,13 @@ class TrackingSDKModule: RCTEventEmitter {
                      resolver: @escaping RCTPromiseResolveBlock, 
                      rejecter: @escaping RCTPromiseRejectBlock) {
         DispatchQueue.main.async {
-            // Implement app open tracking
-            let result = "App open tracked"
-            resolver(result)
+            do {
+                InhouseTrackingSDK.shared.trackAppOpen(shortLink: shortLink) { responseJson in
+                    resolver(responseJson)
+                }
+            } catch {
+                rejecter("TRACK_APP_OPEN_ERROR", error.localizedDescription, error)
+            }
         }
     }
     
@@ -63,9 +82,13 @@ class TrackingSDKModule: RCTEventEmitter {
                           resolver: @escaping RCTPromiseResolveBlock, 
                           rejecter: @escaping RCTPromiseRejectBlock) {
         DispatchQueue.main.async {
-            // Implement session start tracking
-            let result = "Session start tracked"
-            resolver(result)
+            do {
+                InhouseTrackingSDK.shared.trackSessionStart(shortLink: shortLink) { responseJson in
+                    resolver(responseJson)
+                }
+            } catch {
+                rejecter("TRACK_SESSION_START_ERROR", error.localizedDescription, error)
+            }
         }
     }
     
@@ -75,9 +98,13 @@ class TrackingSDKModule: RCTEventEmitter {
                             resolver: @escaping RCTPromiseResolveBlock, 
                             rejecter: @escaping RCTPromiseRejectBlock) {
         DispatchQueue.main.async {
-            // Implement short link click tracking
-            let result = "Short link click tracked"
-            resolver(result)
+            do {
+                InhouseTrackingSDK.shared.trackShortLinkClick(shortLink: shortLink, deepLink: deepLink) { responseJson in
+                    resolver(responseJson)
+                }
+            } catch {
+                rejecter("TRACK_SHORT_LINK_CLICK_ERROR", error.localizedDescription, error)
+            }
         }
     }
     
@@ -85,9 +112,12 @@ class TrackingSDKModule: RCTEventEmitter {
     func getInstallReferrer(_ resolver: @escaping RCTPromiseResolveBlock, 
                            rejecter: @escaping RCTPromiseRejectBlock) {
         DispatchQueue.main.async {
-            // Implement get install referrer
-            let referrer = "sample_referrer_data"
-            resolver(referrer)
+            do {
+                let referrer = InhouseTrackingSDK.shared.getInstallReferrer()
+                resolver(referrer)
+            } catch {
+                rejecter("GET_INSTALL_REFERRER_ERROR", error.localizedDescription, error)
+            }
         }
     }
     
@@ -95,9 +125,13 @@ class TrackingSDKModule: RCTEventEmitter {
     func fetchInstallReferrer(_ resolver: @escaping RCTPromiseResolveBlock, 
                              rejecter: @escaping RCTPromiseRejectBlock) {
         DispatchQueue.main.async {
-            // Implement fetch install referrer
-            let referrer = "fetched_referrer_data"
-            resolver(referrer)
+            do {
+                InhouseTrackingSDK.shared.fetchInstallReferrer { referrer in
+                    resolver(referrer)
+                }
+            } catch {
+                rejecter("FETCH_INSTALL_REFERRER_ERROR", error.localizedDescription, error)
+            }
         }
     }
     
@@ -105,8 +139,12 @@ class TrackingSDKModule: RCTEventEmitter {
     func resetFirstInstall(_ resolver: @escaping RCTPromiseResolveBlock, 
                           rejecter: @escaping RCTPromiseRejectBlock) {
         DispatchQueue.main.async {
-            // Implement reset first install
-            resolver(nil)
+            do {
+                InhouseTrackingSDK.shared.resetFirstInstall()
+                resolver(nil)
+            } catch {
+                rejecter("RESET_FIRST_INSTALL_ERROR", error.localizedDescription, error)
+            }
         }
     }
 } 

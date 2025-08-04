@@ -1,7 +1,7 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
 
-@interface RCT_EXTERN_MODULE(TrackingSDKModule, RCTEventEmitter)
+@interface RCT_EXTERN_MODULE(TrackingSDK, RCTEventEmitter)
 
 RCT_EXTERN_METHOD(initialize:(NSString *)projectId
                   projectToken:(NSString *)projectToken
