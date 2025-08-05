@@ -1,6 +1,6 @@
 {
   "name": "react-native-inhouse-sdk",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A React Native module for tracking SDK functionality",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -50,7 +50,7 @@
       "package": "co.tryinhouse.react_native.TrackingSDKPackage"
     },
     "ios": {
-      "podspec": "ios/TrackingSDK.podspec"
+      "podspec": "react-native-inhouse-sdk.podspec"
     }
   }
 }

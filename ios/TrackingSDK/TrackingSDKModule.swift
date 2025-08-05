@@ -1,9 +1,10 @@
+// TrackingSDKModule.swift
 import Foundation
 import React
 import InhouseTrackingSDK
 
 @objc(TrackingSDK)
-class TrackingSDK: RCTEventEmitter {
+class TrackingSDKModule: RCTEventEmitter {
     
     override init() {
         super.init()
@@ -11,6 +12,17 @@ class TrackingSDK: RCTEventEmitter {
     
     override func supportedEvents() -> [String]! {
         return ["onSdkCallback"]
+    }
+    
+    override static func requiresMainQueueSetup() -> Bool {
+        return true
+    }
+    
+    override func constantsToExport() -> [AnyHashable: Any]! {
+        return [
+            "SDK_VERSION": "1.0.0",
+            "PLATFORM": "iOS"
+        ]
     }
     
     @objc
@@ -147,4 +159,11 @@ class TrackingSDK: RCTEventEmitter {
             }
         }
     }
-} 
+}
+
+// MARK: - RCTBridgeModule
+extension TrackingSDKModule: RCTBridgeModule {
+    static func moduleName() -> String! {
+        return "TrackingSDK"
+    }
+}

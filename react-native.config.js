@@ -9,7 +9,7 @@ module.exports = {
           packageInstance: "new TrackingSDKPackage()",
         },
         ios: {
-          podspecPath: "./ios/TrackingSDK.podspec",
+          podspecPath: "./ios/react-native-inhouse-sdk.podspec",
         },
       },
     },
