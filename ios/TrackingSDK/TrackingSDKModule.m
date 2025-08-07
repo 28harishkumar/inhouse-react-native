@@ -1,5 +1,6 @@
 #import "TrackingSDKModule.h"
 #import <React/RCTLog.h>
+#import <InhouseTrackingSDK/InhouseTrackingSDK-Swift.h>
 
 @implementation TrackingSDKModule
 
@@ -21,27 +22,55 @@ RCT_EXPORT_METHOD(initialize:(NSString *)projectId
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
   RCTLogInfo(@"TrackingSDK: initialize called with projectId: %@", projectId);
-  resolve(@"Mock initialization successful");
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [InhouseTrackingSDK.shared initializeWithProjectId:projectId
+                                          projectToken:projectToken
+                                      shortLinkDomain:shortLinkDomain
+                                           serverUrl:serverUrl
+                                  enableDebugLogging:enableDebugLogging
+                                           callback:^(NSString *callbackType, NSString *data) {
+      [self sendEventWithName:@"onSdkCallback" body:@{
+        @"callbackType": callbackType,
+        @"data": data
+      }];
+    }];
+    resolve(@"SDK initialized successfully");
+  });
 }
 
 RCT_EXPORT_METHOD(onAppResume:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
   RCTLogInfo(@"TrackingSDK: onAppResume called");
-  resolve(nil);
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [InhouseTrackingSDK.shared onAppResume];
+    resolve(nil);
+  });
 }
 
 RCT_EXPORT_METHOD(trackAppOpen:(NSString *)shortLink
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
   RCTLogInfo(@"TrackingSDK: trackAppOpen called with shortLink: %@", shortLink);
-  resolve(@"Mock app open tracked");
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [InhouseTrackingSDK.shared trackAppOpenWithShortLink:shortLink callback:^(NSString *responseJson) {
+      resolve(responseJson);
+    }];
+  });
 }
 
 RCT_EXPORT_METHOD(trackSessionStart:(NSString *)shortLink
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
   RCTLogInfo(@"TrackingSDK: trackSessionStart called with shortLink: %@", shortLink);
-  resolve(@"Mock session start tracked");
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [InhouseTrackingSDK.shared trackSessionStartWithShortLink:shortLink callback:^(NSString *responseJson) {
+      resolve(responseJson);
+    }];
+  });
 }
 
 RCT_EXPORT_METHOD(trackShortLinkClick:(NSString *)shortLink
@@ -49,25 +78,43 @@ RCT_EXPORT_METHOD(trackShortLinkClick:(NSString *)shortLink
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
   RCTLogInfo(@"TrackingSDK: trackShortLinkClick called with shortLink: %@, deepLink: %@", shortLink, deepLink);
-  resolve(@"Mock short link click tracked");
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [InhouseTrackingSDK.shared trackShortLinkClickWithShortLink:shortLink deepLink:deepLink callback:^(NSString *responseJson) {
+      resolve(responseJson);
+    }];
+  });
 }
 
 RCT_EXPORT_METHOD(getInstallReferrer:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
   RCTLogInfo(@"TrackingSDK: getInstallReferrer called");
-  resolve(@"mock_install_referrer_data");
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    NSString *installReferrer = [InhouseTrackingSDK.shared getInstallReferrer];
+    resolve(installReferrer ?: @"");
+  });
 }
 
 RCT_EXPORT_METHOD(fetchInstallReferrer:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
   RCTLogInfo(@"TrackingSDK: fetchInstallReferrer called");
-  resolve(@"mock_fetched_install_referrer_data");
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [InhouseTrackingSDK.shared fetchInstallReferrerWithCallback:^(NSString *referrer) {
+      resolve(referrer ?: @"");
+    }];
+  });
 }
 
 RCT_EXPORT_METHOD(resetFirstInstall:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
   RCTLogInfo(@"TrackingSDK: resetFirstInstall called");
-  resolve(nil);
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [InhouseTrackingSDK.shared resetFirstInstall];
+    resolve(nil);
+  });
 }
 
 @end 
