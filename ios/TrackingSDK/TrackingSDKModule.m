@@ -1,49 +1,69 @@
-//
-//  TrackingSDKModule.m
-//  react-native-inhouse-sdk
-//
+#import "TrackingSDKModule.h"
+#import <React/RCTLog.h>
 
-#import <React/RCTBridgeModule.h>
-#import <React/RCTEventEmitter.h>
+@implementation TrackingSDKModule
 
-@interface RCT_EXTERN_MODULE(TrackingSDK, RCTEventEmitter)
+RCT_EXPORT_MODULE(TrackingSDK);
 
-RCT_EXTERN_METHOD(initialize:(NSString *)projectId 
-                 projectToken:(NSString *)projectToken 
-                 shortLinkDomain:(NSString *)shortLinkDomain
-                 serverUrl:(NSString *)serverUrl
-                 enableDebugLogging:(BOOL)enableDebugLogging
-                 resolver:(RCTPromiseResolveBlock)resolver
-                 rejecter:(RCTPromiseRejectBlock)rejecter)
-
-RCT_EXTERN_METHOD(onAppResume:(RCTPromiseResolveBlock)resolver
-                 rejecter:(RCTPromiseRejectBlock)rejecter)
-
-RCT_EXTERN_METHOD(trackAppOpen:(NSString *)shortLink
-                 resolver:(RCTPromiseResolveBlock)resolver
-                 rejecter:(RCTPromiseRejectBlock)rejecter)
-
-RCT_EXTERN_METHOD(trackSessionStart:(NSString *)shortLink
-                 resolver:(RCTPromiseResolveBlock)resolver
-                 rejecter:(RCTPromiseRejectBlock)rejecter)
-
-RCT_EXTERN_METHOD(trackShortLinkClick:(NSString *)shortLink
-                 deepLink:(NSString *)deepLink
-                 resolver:(RCTPromiseResolveBlock)resolver
-                 rejecter:(RCTPromiseRejectBlock)rejecter)
-
-RCT_EXTERN_METHOD(getInstallReferrer:(RCTPromiseResolveBlock)resolver
-                 rejecter:(RCTPromiseRejectBlock)rejecter)
-
-RCT_EXTERN_METHOD(fetchInstallReferrer:(RCTPromiseResolveBlock)resolver
-                 rejecter:(RCTPromiseRejectBlock)rejecter)
-
-RCT_EXTERN_METHOD(resetFirstInstall:(RCTPromiseResolveBlock)resolver
-                 rejecter:(RCTPromiseRejectBlock)rejecter)
-
-+ (BOOL)requiresMainQueueSetup
-{
-    return YES;
+- (NSArray<NSString *> *)supportedEvents {
+  return @[@"onSdkCallback"];
 }
 
-@end
+RCT_EXPORT_METHOD(initialize:(NSString *)projectId
+                  projectToken:(NSString *)projectToken
+                  shortLinkDomain:(NSString *)shortLinkDomain
+                  serverUrl:(NSString *)serverUrl
+                  enableDebugLogging:(BOOL)enableDebugLogging
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+  RCTLogInfo(@"TrackingSDK: initialize called with projectId: %@", projectId);
+  resolve(@"Mock initialization successful");
+}
+
+RCT_EXPORT_METHOD(onAppResume:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+  RCTLogInfo(@"TrackingSDK: onAppResume called");
+  resolve(nil);
+}
+
+RCT_EXPORT_METHOD(trackAppOpen:(NSString *)shortLink
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+  RCTLogInfo(@"TrackingSDK: trackAppOpen called with shortLink: %@", shortLink);
+  resolve(@"Mock app open tracked");
+}
+
+RCT_EXPORT_METHOD(trackSessionStart:(NSString *)shortLink
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+  RCTLogInfo(@"TrackingSDK: trackSessionStart called with shortLink: %@", shortLink);
+  resolve(@"Mock session start tracked");
+}
+
+RCT_EXPORT_METHOD(trackShortLinkClick:(NSString *)shortLink
+                  deepLink:(NSString *)deepLink
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+  RCTLogInfo(@"TrackingSDK: trackShortLinkClick called with shortLink: %@, deepLink: %@", shortLink, deepLink);
+  resolve(@"Mock short link click tracked");
+}
+
+RCT_EXPORT_METHOD(getInstallReferrer:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+  RCTLogInfo(@"TrackingSDK: getInstallReferrer called");
+  resolve(@"mock_install_referrer_data");
+}
+
+RCT_EXPORT_METHOD(fetchInstallReferrer:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+  RCTLogInfo(@"TrackingSDK: fetchInstallReferrer called");
+  resolve(@"mock_fetched_install_referrer_data");
+}
+
+RCT_EXPORT_METHOD(resetFirstInstall:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+  RCTLogInfo(@"TrackingSDK: resetFirstInstall called");
+  resolve(nil);
+}
+
+@end 

@@ -54,3 +54,5 @@ jspm_packages/
 
 # TypeScript cache
 *.tsbuildinfo 
+local
+ios3
