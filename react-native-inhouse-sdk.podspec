@@ -15,7 +15,14 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React-Core"
-  s.dependency "InhouseTrackingSDK", "~> 1.0.3"
+  s.dependency "InhouseTrackingSDK", "~> 1.0.4"
+  
+  # Configure Swift-to-Objective-C bridging for the module
+  s.pod_target_xcconfig = {
+    'SWIFT_INSTALL_OBJC_HEADER' => 'YES',
+    'DEFINES_MODULE' => 'YES',
+    'CLANG_ENABLE_MODULES' => 'YES'
+  }
   
   # Don't install the dependencies when we run the old architecture.
   if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then

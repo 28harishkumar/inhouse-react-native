@@ -1,6 +1,6 @@
 #import "TrackingSDKModule.h"
 #import <React/RCTLog.h>
-#import <InhouseTrackingSDK/InhouseTrackingSDK-Swift.h>
+@import InhouseTrackingSDK;
 
 @implementation TrackingSDKModule
 
