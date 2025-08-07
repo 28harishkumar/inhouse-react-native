@@ -15,6 +15,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React-Core"
+  s.dependency "InhouseTrackingSDK", "~> 1.0.3"
   
   # Don't install the dependencies when we run the old architecture.
   if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
