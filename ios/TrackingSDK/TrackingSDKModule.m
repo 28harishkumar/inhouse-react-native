@@ -5,6 +5,10 @@
 
 RCT_EXPORT_MODULE(TrackingSDK);
 
++ (BOOL)requiresMainQueueSetup {
+  return NO;
+}
+
 - (NSArray<NSString *> *)supportedEvents {
   return @[@"onSdkCallback"];
 }
