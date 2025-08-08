@@ -2,6 +2,7 @@ import {
   NativeModules,
   NativeEventEmitter,
   EmitterSubscription,
+  Platform,
 } from "react-native";
 
 const { TrackingSDK } = NativeModules;
@@ -28,6 +29,8 @@ export interface TrackingSDKInterface {
   ): Promise<string>;
 
   onAppResume(): Promise<void>;
+
+  onNewURL(url: string): Promise<void>;
 
   trackAppOpen(shortLink?: string): Promise<string>;
 
@@ -105,6 +108,16 @@ class TrackingSDKManager implements TrackingSDKInterface {
   onAppResume(): Promise<void> {
     this.checkAvailability();
     return TrackingSDK.onAppResume();
+  }
+
+  onNewURL(url: string): Promise<void> {
+    this.checkAvailability();
+
+    if (Platform.OS === "ios") {
+      return TrackingSDK.onNewURL(url);
+    }
+
+    return Promise.resolve();
   }
 
   trackAppOpen(shortLink?: string): Promise<string> {

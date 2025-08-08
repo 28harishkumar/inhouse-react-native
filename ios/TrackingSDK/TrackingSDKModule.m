@@ -49,6 +49,18 @@ RCT_EXPORT_METHOD(onAppResume:(RCTPromiseResolveBlock)resolve
   });
 }
 
+RCT_EXPORT_METHOD(onNewURL:(NSString *)urlString
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+  RCTLogInfo(@"TrackingSDK: onNewURL called with url: %@", urlString);
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    NSURL *url = (urlString.length > 0) ? [NSURL URLWithString:urlString] : nil;
+    [InhouseTrackingSDK.shared onNewURL:url];
+    resolve(nil);
+  });
+}
+
 RCT_EXPORT_METHOD(trackAppOpen:(NSString *)shortLink
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {

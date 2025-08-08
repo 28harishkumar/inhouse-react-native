@@ -6,6 +6,7 @@ jest.mock("react-native", () => ({
     TrackingSDK: {
       initialize: jest.fn(),
       onAppResume: jest.fn(),
+      onNewURL: jest.fn(),
       trackAppOpen: jest.fn(),
       trackSessionStart: jest.fn(),
       trackShortLinkClick: jest.fn(),
@@ -33,6 +34,7 @@ describe("TrackingSDK", () => {
   it("should have all required methods", () => {
     expect(typeof TrackingSDK?.initialize).toBe("function");
     expect(typeof TrackingSDK?.onAppResume).toBe("function");
+    expect(typeof TrackingSDK?.onNewURL).toBe("function");
     expect(typeof TrackingSDK?.trackAppOpen).toBe("function");
     expect(typeof TrackingSDK?.trackSessionStart).toBe("function");
     expect(typeof TrackingSDK?.trackShortLinkClick).toBe("function");
