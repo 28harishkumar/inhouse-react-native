@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React-Core"
-  s.dependency "InhouseTrackingSDK", "~> 1.0.5"
+  s.dependency "InhouseTrackingSDK", "~> 1.0.6"
   
   # Configure Swift-to-Objective-C bridging for the module
   s.pod_target_xcconfig = {
