@@ -46,6 +46,13 @@ android {
     }
 }
 
+// Add repositories for resolving dependencies including Thumbmark
+repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
 dependencies {
     // Use compileOnly for React Native to avoid conflicts
     compileOnly "com.facebook.react:react-native:+"
@@ -71,4 +78,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}"
     implementation "androidx.core:core-ktx:${coreKtxVersion}"
     implementation "androidx.appcompat:appcompat:${appcompatVersion}"
+
+    // Thumbmark Android (device fingerprint)
+    implementation 'com.github.thumbmarkjs:thumbmark-android:1.0.+'
 }

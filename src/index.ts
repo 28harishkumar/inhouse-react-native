@@ -51,6 +51,10 @@ export interface TrackingSDKInterface {
   removeCallbackListener(subscription: EmitterSubscription): void;
 
   removeAllListeners(): void;
+
+  // Thumbmark additions
+  getFingerprint(): Promise<string>;
+  getFingerprintId(algorithm?: string): Promise<string>;
 }
 
 class TrackingSDKManager implements TrackingSDKInterface {
@@ -176,6 +180,23 @@ class TrackingSDKManager implements TrackingSDKInterface {
   removeAllListeners(): void {
     this.listeners.forEach((subscription) => subscription.remove());
     this.listeners = [];
+  }
+
+  // Thumbmark additions
+  getFingerprint(): Promise<string> {
+    this.checkAvailability();
+    if (Platform.OS === "android") {
+      return TrackingSDK.getFingerprint();
+    }
+    return Promise.resolve("");
+  }
+
+  getFingerprintId(algorithm?: string): Promise<string> {
+    this.checkAvailability();
+    if (Platform.OS === "android") {
+      return TrackingSDK.getFingerprintId(algorithm);
+    }
+    return Promise.resolve("");
   }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "react-native-inhouse-sdk",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A React Native module for tracking SDK functionality",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

@@ -13,6 +13,8 @@ import android.util.Log
 import android.app.Activity
 import android.os.Handler
 import android.os.Looper
+import com.google.gson.Gson
+import com.thumbmarkjs.thumbmark_android.Thumbmark
 
 class TrackingSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
@@ -133,6 +135,35 @@ class TrackingSDKModule(reactContext: ReactApplicationContext) : ReactContextBas
             promise.resolve(null)
         } catch (e: Exception) {
             promise.reject("RESET_FIRST_INSTALL_ERROR", e.message, e)
+        }
+    }
+
+    // Expose Thumbmark fingerprint as JSON string
+    @ReactMethod
+    fun getFingerprint(promise: Promise) {
+        try {
+            val fingerprint = Thumbmark.fingerprint(reactApplicationContext)
+            val json = Gson().toJson(fingerprint)
+            promise.resolve(json)
+        } catch (e: Exception) {
+            Log.e("TrackingSDKModule", "Error getting fingerprint", e)
+            promise.reject("GET_FINGERPRINT_ERROR", e.message, e)
+        }
+    }
+
+    // Expose Thumbmark hashed identifier; optional algorithm parameter
+    @ReactMethod
+    fun getFingerprintId(algorithm: String?, promise: Promise) {
+        try {
+            val id = if (algorithm != null && algorithm.isNotEmpty()) {
+                Thumbmark.id(algorithm, reactApplicationContext)
+            } else {
+                Thumbmark.id(reactApplicationContext)
+            }
+            promise.resolve(id)
+        } catch (e: Exception) {
+            Log.e("TrackingSDKModule", "Error getting fingerprint id", e)
+            promise.reject("GET_FINGERPRINT_ID_ERROR", e.message, e)
         }
     }
 
