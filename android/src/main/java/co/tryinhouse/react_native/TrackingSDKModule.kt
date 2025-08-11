@@ -156,7 +156,7 @@ class TrackingSDKModule(reactContext: ReactApplicationContext) : ReactContextBas
     fun getFingerprintId(algorithm: String?, promise: Promise) {
         try {
             val id = if (algorithm != null && algorithm.isNotEmpty()) {
-                Thumbmark.id(algorithm, reactApplicationContext)
+                Thumbmark.id(reactApplicationContext, algorithm)
             } else {
                 Thumbmark.id(reactApplicationContext)
             }
