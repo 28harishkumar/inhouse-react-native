@@ -22,20 +22,20 @@ class TrackingSDKModule(reactContext: ReactApplicationContext) : ReactContextBas
 
     @ReactMethod
     fun initialize(
-        projectId: String,
         projectToken: String,
+        tokenId: String,
         shortLinkDomain: String,
         serverUrl: String?,
         enableDebugLogging: Boolean,
         promise: Promise
     ) {
         try {
-            Log.d("TrackingSDKModule", "initialize called with projectId=$projectId, projectToken=$projectToken, shortLinkDomain=$shortLinkDomain, serverUrl=$serverUrl, enableDebugLogging=$enableDebugLogging")
+            Log.d("TrackingSDKModule", "initialize called with projectToken=$projectToken, tokenId=$tokenId, shortLinkDomain=$shortLinkDomain, serverUrl=$serverUrl, enableDebugLogging=$enableDebugLogging")
             
             TrackingSDK.getInstance().initialize(
                 context = reactApplicationContext,
-                projectId = projectId,
                 projectToken = projectToken,
+                tokenId = tokenId,
                 shortLinkDomain = shortLinkDomain,
                 serverUrl = serverUrl ?: "https://api.tryinhouse.co",
                 enableDebugLogging = enableDebugLogging

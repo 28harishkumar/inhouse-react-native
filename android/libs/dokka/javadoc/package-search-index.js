@@ -1,1 +1,0 @@
-var packageSearchIndex = [{"l":"co.tryinhouse.android","url":"co/tryinhouse/android/package-summary.html"}, {"l":"co.tryinhouse.android.models","url":"co/tryinhouse/android/models/package-summary.html"}, {"l":"All packages","url":"index.html"}]

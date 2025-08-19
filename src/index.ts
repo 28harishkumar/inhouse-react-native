@@ -21,7 +21,7 @@ export interface TrackingSDKCallback {
 
 export interface TrackingSDKInterface {
   initialize(
-    projectId: string,
+    tokenId: string,
     projectToken: string,
     shortLinkDomain: string,
     serverUrl?: string,
@@ -93,16 +93,16 @@ class TrackingSDKManager implements TrackingSDKInterface {
   }
 
   initialize(
-    projectId: string,
     projectToken: string,
+    tokenId: string,
     shortLinkDomain: string,
     serverUrl?: string,
     enableDebugLogging: boolean = false
   ): Promise<string> {
     this.checkAvailability();
     return TrackingSDK.initialize(
-      projectId,
       projectToken,
+      tokenId,
       shortLinkDomain,
       serverUrl,
       enableDebugLogging

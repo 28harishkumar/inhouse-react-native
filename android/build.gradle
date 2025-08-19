@@ -57,9 +57,10 @@ dependencies {
     // Use compileOnly for React Native to avoid conflicts
     compileOnly "com.facebook.react:react-native:+"
     
-    // Use the extracted JAR instead of AAR to avoid AAR dependency issues
+    // Use the extracted JAR from client AAR
     implementation files('libs/classes.jar')
-    implementation fileTree(dir: 'libs', include: ['*.jar'], exclude: ['client-release.aar'])
+    // Include other JAR files but exclude AAR from fileTree  
+    implementation fileTree(dir: 'libs', include: ['*.jar'], exclude: ['*.aar', 'classes.jar'])
     
     // Make dependencies configurable - use project versions when available
     def okhttpVersion = rootProject.hasProperty('okhttpVersion') ? rootProject.ext.okhttpVersion : '4.12.0'

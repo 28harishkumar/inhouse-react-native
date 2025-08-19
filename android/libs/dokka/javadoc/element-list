@@ -1,6 +1,0 @@
-$dokka.format:javadoc-v1
-$dokka.linkExtension:html
-$dokka.location:co.tryinhouse.android/TrackingSDK.Companion///PointingToDeclaration/co/tryinhouse/android/TrackingSDK.Companion.html
-co.tryinhouse.android
-co.tryinhouse.android.models
-

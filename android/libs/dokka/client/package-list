@@ -2,14 +2,12 @@ $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:co.tryinhouse.android.models////PointingToDeclaration/client/co.tryinhouse.android.models/index.html
 $dokka.location:co.tryinhouse.android.models/Event///PointingToDeclaration/client/co.tryinhouse.android.models/-event/index.html
-$dokka.location:co.tryinhouse.android.models/Event/Event/#kotlin.String#kotlin.String#kotlin.String#kotlin.String?#kotlin.String?#kotlin.Long#kotlin.String#kotlin.String#kotlin.collections.Map[kotlin.String,kotlin.Any]?#kotlin.String?#kotlin.String?/PointingToDeclaration/client/co.tryinhouse.android.models/-event/-event.html
+$dokka.location:co.tryinhouse.android.models/Event/Event/#kotlin.String#kotlin.String?#kotlin.String?#kotlin.Long#kotlin.String#kotlin.String#kotlin.collections.Map[kotlin.String,kotlin.Any]?#kotlin.String?#kotlin.String?/PointingToDeclaration/client/co.tryinhouse.android.models/-event/-event.html
 $dokka.location:co.tryinhouse.android.models/Event/deepLink/#/PointingToDeclaration/client/co.tryinhouse.android.models/-event/deep-link.html
 $dokka.location:co.tryinhouse.android.models/Event/deviceId/#/PointingToDeclaration/client/co.tryinhouse.android.models/-event/device-id.html
 $dokka.location:co.tryinhouse.android.models/Event/eventType/#/PointingToDeclaration/client/co.tryinhouse.android.models/-event/event-type.html
 $dokka.location:co.tryinhouse.android.models/Event/extra/#/PointingToDeclaration/client/co.tryinhouse.android.models/-event/extra.html
 $dokka.location:co.tryinhouse.android.models/Event/ipAddress/#/PointingToDeclaration/client/co.tryinhouse.android.models/-event/ip-address.html
-$dokka.location:co.tryinhouse.android.models/Event/projectId/#/PointingToDeclaration/client/co.tryinhouse.android.models/-event/project-id.html
-$dokka.location:co.tryinhouse.android.models/Event/projectToken/#/PointingToDeclaration/client/co.tryinhouse.android.models/-event/project-token.html
 $dokka.location:co.tryinhouse.android.models/Event/sessionId/#/PointingToDeclaration/client/co.tryinhouse.android.models/-event/session-id.html
 $dokka.location:co.tryinhouse.android.models/Event/shortLink/#/PointingToDeclaration/client/co.tryinhouse.android.models/-event/short-link.html
 $dokka.location:co.tryinhouse.android.models/Event/timestamp/#/PointingToDeclaration/client/co.tryinhouse.android.models/-event/timestamp.html
@@ -23,11 +21,11 @@ $dokka.location:co.tryinhouse.android.models/SDKConfig///PointingToDeclaration/
 $dokka.location:co.tryinhouse.android.models/SDKConfig/SDKConfig/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.Boolean#kotlin.Int#kotlin.Int/PointingToDeclaration/client/co.tryinhouse.android.models/-s-d-k-config/-s-d-k-config.html
 $dokka.location:co.tryinhouse.android.models/SDKConfig/enableDebugLogging/#/PointingToDeclaration/client/co.tryinhouse.android.models/-s-d-k-config/enable-debug-logging.html
 $dokka.location:co.tryinhouse.android.models/SDKConfig/maxRetryAttempts/#/PointingToDeclaration/client/co.tryinhouse.android.models/-s-d-k-config/max-retry-attempts.html
-$dokka.location:co.tryinhouse.android.models/SDKConfig/projectId/#/PointingToDeclaration/client/co.tryinhouse.android.models/-s-d-k-config/project-id.html
 $dokka.location:co.tryinhouse.android.models/SDKConfig/projectToken/#/PointingToDeclaration/client/co.tryinhouse.android.models/-s-d-k-config/project-token.html
 $dokka.location:co.tryinhouse.android.models/SDKConfig/serverUrl/#/PointingToDeclaration/client/co.tryinhouse.android.models/-s-d-k-config/server-url.html
 $dokka.location:co.tryinhouse.android.models/SDKConfig/sessionTimeoutMinutes/#/PointingToDeclaration/client/co.tryinhouse.android.models/-s-d-k-config/session-timeout-minutes.html
 $dokka.location:co.tryinhouse.android.models/SDKConfig/shortLinkDomain/#/PointingToDeclaration/client/co.tryinhouse.android.models/-s-d-k-config/short-link-domain.html
+$dokka.location:co.tryinhouse.android.models/SDKConfig/tokenId/#/PointingToDeclaration/client/co.tryinhouse.android.models/-s-d-k-config/token-id.html
 $dokka.location:co.tryinhouse.android////PointingToDeclaration/client/co.tryinhouse.android/index.html
 $dokka.location:co.tryinhouse.android/BaseTrackingActivity///PointingToDeclaration/client/co.tryinhouse.android/-base-tracking-activity/index.html
 $dokka.location:co.tryinhouse.android/BaseTrackingActivity/BaseTrackingActivity/#/PointingToDeclaration/client/co.tryinhouse.android/-base-tracking-activity/-base-tracking-activity.html
@@ -51,7 +49,7 @@ $dokka.location:co.tryinhouse.android/InstallReferrerReceiver/onReceive/#android
 $dokka.location:co.tryinhouse.android/NetworkClient///PointingToDeclaration/client/co.tryinhouse.android/-network-client/index.html
 $dokka.location:co.tryinhouse.android/NetworkClient/NetworkClient/#co.tryinhouse.android.models.SDKConfig/PointingToDeclaration/client/co.tryinhouse.android/-network-client/-network-client.html
 $dokka.location:co.tryinhouse.android/NetworkClient/getInstallData/#kotlin.String/PointingToDeclaration/client/co.tryinhouse.android/-network-client/get-install-data.html
-$dokka.location:co.tryinhouse.android/NetworkClient/sendEvent/#co.tryinhouse.android.models.Event/PointingToDeclaration/client/co.tryinhouse.android/-network-client/send-event.html
+$dokka.location:co.tryinhouse.android/NetworkClient/sendEvent/#co.tryinhouse.android.models.Event#kotlin.String?/PointingToDeclaration/client/co.tryinhouse.android/-network-client/send-event.html
 $dokka.location:co.tryinhouse.android/ShortLinkDetector///PointingToDeclaration/client/co.tryinhouse.android/-short-link-detector/index.html
 $dokka.location:co.tryinhouse.android/ShortLinkDetector/ShortLinkDetector/#kotlin.String/PointingToDeclaration/client/co.tryinhouse.android/-short-link-detector/-short-link-detector.html
 $dokka.location:co.tryinhouse.android/ShortLinkDetector/extractShortLink/#kotlin.String/PointingToDeclaration/client/co.tryinhouse.android/-short-link-detector/extract-short-link.html
@@ -78,10 +76,11 @@ $dokka.location:co.tryinhouse.android/TrackingSDK///PointingToDeclaration/clien
 $dokka.location:co.tryinhouse.android/TrackingSDK/config/#/PointingToDeclaration/client/co.tryinhouse.android/-tracking-s-d-k/config.html
 $dokka.location:co.tryinhouse.android/TrackingSDK/debugFirstInstallState/#/PointingToDeclaration/client/co.tryinhouse.android/-tracking-s-d-k/debug-first-install-state.html
 $dokka.location:co.tryinhouse.android/TrackingSDK/fetchInstallReferrer/#kotlin.Function1[kotlin.String?,kotlin.Unit]/PointingToDeclaration/client/co.tryinhouse.android/-tracking-s-d-k/fetch-install-referrer.html
+$dokka.location:co.tryinhouse.android/TrackingSDK/getApplicationContext/#/PointingToDeclaration/client/co.tryinhouse.android/-tracking-s-d-k/get-application-context.html
 $dokka.location:co.tryinhouse.android/TrackingSDK/getDeviceId/#/PointingToDeclaration/client/co.tryinhouse.android/-tracking-s-d-k/get-device-id.html
 $dokka.location:co.tryinhouse.android/TrackingSDK/getInstallReferrer/#/PointingToDeclaration/client/co.tryinhouse.android/-tracking-s-d-k/get-install-referrer.html
 $dokka.location:co.tryinhouse.android/TrackingSDK/getSessionId/#/PointingToDeclaration/client/co.tryinhouse.android/-tracking-s-d-k/get-session-id.html
-$dokka.location:co.tryinhouse.android/TrackingSDK/initialize/#android.content.Context#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.Boolean#kotlin.Function2[kotlin.String,kotlin.String,kotlin.Unit]?/PointingToDeclaration/client/co.tryinhouse.android/-tracking-s-d-k/initialize.html
+$dokka.location:co.tryinhouse.android/TrackingSDK/initialize/#android.content.Context#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.Boolean#kotlin.Function2[kotlin.String,kotlin.String,kotlin.Unit]?/PointingToDeclaration/client/co.tryinhouse.android/-tracking-s-d-k/initialize.html
 $dokka.location:co.tryinhouse.android/TrackingSDK/onAppResume/#/PointingToDeclaration/client/co.tryinhouse.android/-tracking-s-d-k/on-app-resume.html
 $dokka.location:co.tryinhouse.android/TrackingSDK/onNewIntent/#android.content.Intent?/PointingToDeclaration/client/co.tryinhouse.android/-tracking-s-d-k/on-new-intent.html
 $dokka.location:co.tryinhouse.android/TrackingSDK/resetFirstInstall/#/PointingToDeclaration/client/co.tryinhouse.android/-tracking-s-d-k/reset-first-install.html
