@@ -1,6 +1,6 @@
 {
-  "name": "react-native-inhouse-sdk",
-  "version": "1.0.9",
+  "name": "@tryinhouse/react-native-inhouse-sdk",
+  "version": "1.0.10",
   "description": "A React Native module for tracking SDK functionality",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -10,6 +10,9 @@
     "test": "jest",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
     "react-native",
