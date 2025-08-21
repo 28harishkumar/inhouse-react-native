@@ -93,12 +93,8 @@ class TrackingSDKModule(reactContext: ReactApplicationContext) : ReactContextBas
     @ReactMethod
     fun trackShortLinkClick(shortLink: String, deepLink: String?, promise: Promise) {
         try {
-            if (shortLink != null) {
-                TrackingSDK.getInstance().trackShortLinkClick(shortLink, deepLink) { responseJson ->
-                    promise.resolve(responseJson)
-                }
-            } else {
-                promise.resolve(null)
+            TrackingSDK.getInstance().trackShortLinkClick(shortLink, deepLink) { responseJson ->
+                promise.resolve(responseJson)
             }
         } catch (e: Exception) {
             promise.reject("TRACK_SHORT_LINK_CLICK_ERROR", e.message, e)

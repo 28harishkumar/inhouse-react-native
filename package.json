@@ -1,6 +1,6 @@
 {
   "name": "@tryinhouse/react-native-inhouse-sdk",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "A React Native module for tracking SDK functionality",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
