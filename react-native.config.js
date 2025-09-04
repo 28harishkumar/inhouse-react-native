@@ -1,6 +1,6 @@
 module.exports = {
   dependencies: {
-    "react-native-inhouse-sdk": {
+    "@tryinhouse/react-native-inhouse-sdk": {
       platforms: {
         android: {
           sourceDir: "./android",
